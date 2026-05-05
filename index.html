@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop LITIO — Dr. Sihem Amer-Yahia · 24–25 Mai 2026</title>
+    <meta name="description" content="Journées scientifiques avec Dr. Sihem Amer-Yahia au LITIO, Université d'Oran 1. 24–25 Mai 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- DM Sans for body sections · Playfair Display + Inter for nav/hero -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,500&display=swap" rel="stylesheet">
+    <style>
+        /* ── TOKENS ── */
+        :root {
+            /* Body sections (ORCID-inspired green) */
+            --green:      #3DAA6A;
+            --green-dark: #1D5C40;
+            --green-pale: #EDF8F2;
+            --green-sage: #C0DFD0;
+            --gold:       #B8882E;
+            --text:       #111827;
+            --muted:      #6B7280;
+            --border:     #E5E7EB;
+            --font:       'DM Sans', system-ui, sans-serif;
+
+            /* Nav / Hero (v1 original) */
+            --serif:  'Playfair Display', Georgia, serif;
+            --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
+            --sh-sm: 0 2px 8px rgba(0,0,0,.06);
+            --sh-md: 0 4px 20px rgba(0,0,0,.10);
+            --sh-lg: 0 8px 40px rgba(0,0,0,.14);
+            --ease:  all .3s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ── RESET ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body  { font-family: var(--font); color: var(--text); background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        img   { display: block; max-width: 100%; }
+        a     { color: var(--green); text-decoration: none; transition: var(--ease); }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+        .section    { padding: 72px 0; border-top: 1px solid var(--border); }
+
+        .eyebrow {
+            font-size: .67rem; font-weight: 700; letter-spacing: .18em;
+            text-transform: uppercase; color: var(--green); margin-bottom: 6px;
+        }
+        .section-title {
+            font-size: 1.4rem; font-weight: 700; margin-bottom: 32px; letter-spacing: -.01em;
+        }
+
+        /* ── FADE-IN ── */
+        .fi    { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+        .fi.on { opacity: 1; transform: none; }
+        .fi-d1 { transition-delay: .1s; }
+        .fi-d2 { transition-delay: .2s; }
+        .fi-d3 { transition-delay: .3s; }
+
+        /* ══════════════════════════════════════════
+           NAV  (v1 original)
+        ══════════════════════════════════════════ */
+        .nav {
+            position: sticky; top: 0; z-index: 100;
+            background: #1B5E3B;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+        .nav__inner {
+            display: flex; align-items: center;
+            justify-content: space-between; height: 66px;
+        }
+        .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav__mark  {
+            width: 34px; height: 34px; background: #C4993A; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--serif); font-weight: 700; font-size: .85rem; color: #fff;
+        }
+        .nav__name { font-family: var(--serif); font-size: .95rem; font-weight: 700; color: #fff; line-height: 1.1; }
+        .nav__sub  { font-size: .62rem; color: rgba(255,255,255,.6); letter-spacing: .06em; text-transform: uppercase; }
+        .nav__links { display: flex; gap: 2px; list-style: none; }
+        .nav__links a {
+            padding: 7px 13px; font-size: .85rem; font-weight: 500;
+            color: rgba(255,255,255,.82); border-radius: var(--r-sm); display: block;
+            transition: var(--ease); position: relative;
+        }
+        .nav__links a:hover,
+        .nav__links a.active { color: #fff; background: rgba(255,255,255,.1); text-decoration: none; }
+        .nav__links a.active::after {
+            content: ''; position: absolute; bottom: 3px; left: 13px; right: 13px;
+            height: 2px; background: #C4993A; border-radius: 2px;
+        }
+        .nav__burger {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 8px;
+        }
+        .nav__burger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+        .nav__mobile { display: none; background: #143F28; }
+        .nav__mobile.open { display: block; }
+        .nav__mobile a { display: block; padding: 12px 24px; font-size: .95rem; color: rgba(255,255,255,.88); }
+        .nav__mobile a:hover { background: rgba(255,255,255,.05); color: #fff; text-decoration: none; }
+
+        /* ══════════════════════════════════════════
+           HERO  (v1 original)
+        ══════════════════════════════════════════ */
+        .hero {
+            background: #1B5E3B; min-height: 92vh;
+            display: flex; align-items: center; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.035) 1px, transparent 0);
+            background-size: 30px 30px; pointer-events: none;
+        }
+        .hero__grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 72px; align-items: center; padding:40px 0; position: relative; z-index: 1;
+        }
+        .hero__tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(196,153,58,.15); border: 1px solid rgba(196,153,58,.4);
+            border-radius: 100px; padding: 5px 15px; font-size: .75rem;
+            font-weight: 600; color: #D4AC52; letter-spacing: .08em;
+            text-transform: uppercase; width: fit-content; margin-bottom: 20px;
+        }
+        .hero__dot { width: 6px; height: 6px; background: #C4993A; border-radius: 50%; animation: blink 2s infinite; flex-shrink: 0; }
+        @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+        .hero__title {
+            font-family: var(--serif); font-size: clamp(2.1rem,4.2vw,3.4rem);
+            font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 18px;
+        }
+        .hero__title em { font-style: italic; color: #D4AC52; }
+        .hero__sub  { font-size: clamp(.95rem,1.4vw,1.15rem); color: rgba(255,255,255,.72); font-weight: 300; margin-bottom: 28px; }
+        .hero__meta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+        .hero__meta-row { display: flex; align-items: center; gap: 10px; font-size: .92rem; color: rgba(255,255,255,.85); }
+        .hero__meta-icon {
+            width: 30px; height: 30px; background: rgba(255,255,255,.1);
+            border-radius: 7px; display: flex; align-items: center;
+            justify-content: center; font-size: .8rem; flex-shrink: 0;
+        }
+        .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 13px 26px; border-radius: var(--r-md); font-size: .92rem;
+            font-weight: 600; border: 2px solid transparent; transition: var(--ease); cursor: pointer;
+            text-decoration: none;
+        }
+        .btn--gold  { background: #C4993A; color: #fff; border-color: #C4993A; }
+        .btn--gold:hover  { background: #D4AC52; border-color: #D4AC52; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(196,153,58,.4); text-decoration: none; }
+        .btn--ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.38); }
+        .btn--ghost:hover { background: rgba(255,255,255,.1); border-color: #fff; color: #fff; text-decoration: none; }
+
+        .hero__photo-wrap { display: flex; justify-content: center; align-items: center; }
+        .hero__frame { position: relative; width: 400px; height: 500px; }
+        .hero__frame-bg {
+            position: absolute; inset: -14px; border-radius: var(--r-xl);
+            background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+        }
+        .hero__frame-ring {
+            position: absolute; inset: -6px; border-radius: var(--r-xl);
+            border: 2px solid #C4993A; opacity: .4;
+        }
+        .hero__photo {
+            width: 100%; height: 100%; object-fit: cover; object-position: top;
+            border-radius: var(--r-xl); position: relative; z-index: 1;
+            box-shadow: var(--sh-lg);
+        }
+        .hero__badge {
+            position: absolute; bottom: -18px; left: -18px; z-index: 2;
+            background: #fff; border-radius: var(--r-md); padding: 12px 16px;
+            box-shadow: var(--sh-md); display: flex; align-items: center; gap: 10px;
+        }
+        .hero__badge-icon {
+            width: 38px; height: 38px; background: #C4993A; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1rem;
+        }
+        .hero__badge-label { font-size: .65rem; color: #5C6B73; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+        .hero__badge-val   { font-size: .82rem; font-weight: 700; color: #1A1A2E; font-family: var(--serif); }
+        .hero__badge2 {
+            position: absolute; top: -14px; right: -14px; z-index: 2;
+            background: #C4993A; border-radius: var(--r-md); padding: 9px 14px;
+            box-shadow: var(--sh-md); font-size: .72rem; font-weight: 700;
+            color: #fff; text-align: center; line-height: 1.3;
+        }
+
+        /* ══════════════════════════════════════════
+           SPEAKER  (DM Sans)
+        ══════════════════════════════════════════ */
+        .speaker__grid {
+            display: grid; grid-template-columns: 280px 1fr;
+            gap: 56px; align-items: start;
+        }
+        .speaker__left {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 16px;
+            position: sticky; top: 84px;
+        }
+        .speaker__frame {
+            width: 240px; height: 296px; border-radius: 3px;
+            overflow: hidden; border: 1px solid var(--border);
+        }
+        .speaker__frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .speaker__name-sm  { font-size: .97rem; font-weight: 700; text-align: center; }
+        .speaker__role-sm  { font-size: .76rem; color: var(--muted); text-align: center; line-height: 1.45; }
+        .speaker__plinks   { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        .speaker__pl {
+            font-size: .7rem; font-weight: 600; color: var(--muted);
+            border: 1px solid var(--border); padding: 4px 10px; border-radius: 2px;
+        }
+        .speaker__pl:hover { color: var(--green); border-color: var(--green-sage); text-decoration: none; }
+
+        .speaker__right    { display: flex; flex-direction: column; gap: 30px; }
+        .speaker__heading  { font-size: 1.55rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 3px; }
+        .speaker__subtitle { font-size: .85rem; color: var(--green); font-weight: 600; margin-bottom: 14px; }
+        .speaker__bio      { font-size: .94rem; line-height: 1.82; }
+
+        .awards {
+            background: rgba(184,136,46,.06);
+            border: 1px solid rgba(184,136,46,.18); border-radius: 3px; padding: 22px;
+        }
+        .awards__label { font-size: .63rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+        .awards__list  { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+        .awards__item  { display: flex; align-items: center; gap: 10px; font-size: .86rem; }
+        .yr {
+            background: var(--gold); color: #fff; border-radius: 2px;
+            padding: 2px 7px; font-size: .65rem; font-weight: 700;
+            min-width: 40px; text-align: center; flex-shrink: 0;
+        }
+        .yr--green { background: var(--green-dark); }
+
+        .tl__label { font-size: .63rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+        .tl { display: flex; flex-direction: column; }
+        .tl__item { display: flex; gap: 12px; position: relative; }
+        .tl__item:not(:last-child)::after {
+            content: ''; position: absolute; left: 17px; top: 36px;
+            bottom: -4px; width: 1px; background: var(--border);
+        }
+        .tl__dot {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--green-pale); border: 1px solid var(--green-sage);
+            display: flex; align-items: center; justify-content: center;
+            font-size: .62rem; font-weight: 800; color: var(--green-dark);
+            flex-shrink: 0; z-index: 1;
+        }
+        .tl__body { padding: 6px 0 20px; }
+        .tl__org  { font-weight: 700; font-size: .87rem; }
+        .tl__pos  { font-size: .76rem; color: var(--muted); }
+
+        .metrics {
+            display: grid; grid-template-columns: repeat(3,1fr);
+            gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden;
+        }
+        .metric      { background: #fff; padding: 18px; text-align: center; }
+        .metric__val { font-size: 1.55rem; font-weight: 800; color: var(--green-dark); line-height: 1; letter-spacing: -.02em; }
+        .metric__lbl { font-size: .68rem; color: var(--muted); margin-top: 3px; font-weight: 500; }
+
+        /* ══════════════════════════════════════════
+           LITIO CARDS  (DM Sans)
+        ══════════════════════════════════════════ */
+        .litio-intro { font-size: .94rem; line-height: 1.8; max-width: 640px; margin-bottom: 12px; }
+        .litio-ext   { font-size: .8rem; font-weight: 500; color: var(--muted); }
+        .litio-ext:hover { color: var(--green); text-decoration: none; }
+
+        .litio-meta    { margin-top: 28px; margin-bottom: 32px; }
+        .litio-meta dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: .88rem; }
+        .litio-meta dt { font-weight: 600; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; padding-top: 1px; }
+        .litio-meta dd { color: var(--text); }
+
+        .teams-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+        .team-card  { border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+        .team-card__img {
+            height: 140px; background: var(--green-pale);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .team-card__img img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            display: block;
+        }
+        .team-card__body       { padding: 18px 20px; }
+        .team-card__code       { font-size: .65rem; font-weight: 800; letter-spacing: .08em; color: var(--green); margin-bottom: 5px; }
+        .team-card__name       { font-size: .88rem; font-weight: 700; line-height: 1.35; margin-bottom: 10px; }
+        .team-card__head-label { font-size: .6rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+        .team-card__head       { font-size: .8rem; color: var(--muted); }
+
+        /* ══════════════════════════════════════════
+           PROGRAMME  (DM Sans, merged)
+        ══════════════════════════════════════════ */
+        .prog-item            { padding: 32px 0; border-top: 1px solid var(--border); }
+        .prog-item:last-child { border-bottom: 1px solid var(--border); }
+        .prog-item--break     { opacity: .5; padding: 16px 0; }
+        .prog__row      { display: grid; grid-template-columns: 80px 1fr; gap: 24px; }
+        .prog__time     { font-size: 1.25rem; font-weight: 800; color: var(--green); padding-top: 2px; letter-spacing: -.02em; line-height: 1; }
+        .prog__time--soft { font-size: .9rem; font-weight: 500; color: var(--muted); }
+        .prog__type     { font-size: .63rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+        .prog__title    { font-size: 1.02rem; font-weight: 700; line-height: 1.35; margin-bottom: 3px; letter-spacing: -.01em; }
+        .prog__title-en { font-size: .84rem; color: var(--muted); font-style: italic; margin-bottom: 4px; }
+        .prog__by       { font-size: .8rem; color: var(--muted); margin-bottom: 18px; }
+        .prog__abstract { font-size: .88rem; line-height: 1.75; color: var(--muted); margin-top: 10px; }
+        .prog__abstract--fr { font-style: italic; }
+        .prog__by       { margin-bottom: 0; }
+
+        .prog-day-label {
+            font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--green-dark);
+            display: flex; align-items: center; gap: 12px;
+            padding-top: 40px; margin-bottom: 0;
+        }
+        .prog-day-label:first-child { padding-top: 0; }
+        .prog-day-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* ── CTA ── */
+        .cta-section { background: #1B5E3B; border-top: none; }
+        .cta-inner   { text-align: center; max-width: 600px; margin: 0 auto; }
+        .cta-tag     {
+            font-size: .67rem; font-weight: 700; letter-spacing: .18em;
+            text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 20px;
+        }
+        .cta-title   { font-size: clamp(1.5rem,2.8vw,2rem); font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -.02em; margin-bottom: 16px; }
+        .cta-text    { font-size: .95rem; line-height: 1.82; color: rgba(255,255,255,.68); margin-bottom: 28px; }
+        .cta-details { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+        .cta-detail  { font-size: .85rem; color: rgba(255,255,255,.82); display: flex; align-items: center; gap: 7px; }
+
+        /* ── FOOTER ── */
+        .footer { border-top: 1px solid var(--border); padding: 28px 0; }
+        .footer__inner {
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: .77rem; color: var(--muted);
+        }
+        .footer__brand { font-weight: 800; color: var(--green); font-size: .87rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 860px) {
+            .hero__grid    { grid-template-columns: 1fr; gap: 44px; padding: 60px 0; text-align: center; }
+            .hero__photo-wrap { order: -1; }
+            .hero__frame   { width: 280px; height: 360px; }
+            .hero__actions,
+            .hero__meta    { justify-content: center; align-items: center; }
+            .speaker__grid { grid-template-columns: 1fr; gap: 32px; }
+            .speaker__left { position: static; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 20px; }
+            .teams-grid    { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 580px) {
+            .nav__links  { display: none; }
+            .nav__burger { display: flex; }
+            .hero__frame { width: 230px; height: 290px; }
+            .hero__badge, .hero__badge2 { display: none; }
+            .section     { padding: 52px 0; }
+            .metrics     { grid-template-columns: 1fr; }
+            .footer__inner { flex-direction: column; gap: 6px; text-align: center; }
+            .prog__row   { grid-template-columns: 68px 1fr; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV (v1) -->
+<nav class="nav" id="top">
+    <div class="container">
+        <div class="nav__inner">
+            <a href="#top" class="nav__brand">
+                <div class="nav__mark">Li</div>
+                <div>
+                    <div class="nav__name">LITIO</div>
+                    <div class="nav__sub">Université d'Oran 1</div>
+                </div>
+            </a>
+            <ul class="nav__links">
+                <li><a href="#speaker">Conférencière</a></li>
+                <li><a href="#programme">Programme</a></li>
+                <li><a href="#litio">LITIO</a></li>
+            </ul>
+            <button class="nav__burger" id="burger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+        <a href="#speaker"   class="ml">Conférencière</a>
+        <a href="#programme" class="ml">Programme</a>
+        <a href="#litio"     class="ml">LITIO</a>
+    </div>
+</nav>
+
+<!-- HERO (v1) -->
+<section class="hero" id="hero">
+    <div class="container">
+        <div class="hero__grid">
+            <div>
+                <div class="hero__tag fi"><span class="hero__dot"></span>LITIO Workshop · 24 &amp; 25 Mai 2026</div>
+                <h1 class="hero__title fi fi-d1">
+                    Journées Scientifiques<br>
+                    avec <em>Dr. Sihem<br>Amer-Yahia</em>
+                </h1>
+                <p class="hero__sub fi fi-d2">Données, Intelligence Artificielle &amp; Prise de Décision Séquentielle</p>
+                <div class="hero__meta fi fi-d2">
+                    <div class="hero__meta-row"><div class="hero__meta-icon">📅</div><span>24 &amp; 25 Mai 2026 — Dimanche &amp; Lundi</span></div>
+                    <div class="hero__meta-row"><div class="hero__meta-icon">📍</div><span>LITIO — FSEA, Université d'Oran 1 Ahmed Ben Bella</span></div>
+                    <div class="hero__meta-row"><div class="hero__meta-icon">🎓</div><span>Exposé Invité · Table Ronde · Rencontre LITIO</span></div>
+                </div>
+                <div class="hero__actions fi fi-d3">
+                    <a href="#programme" class="btn btn--gold">Voir le Programme</a>
+                    <a href="#speaker"   class="btn btn--ghost">La Conférencière</a>
+                </div>
+            </div>
+            <div class="hero__photo-wrap fi fi-d2">
+                <div class="hero__frame">
+                    <div class="hero__frame-bg"></div>
+                    <div class="hero__frame-ring"></div>
+                    <img src="Sihem2024.jpg" alt="Dr. Sihem Amer-Yahia" class="hero__photo">
+                    <div class="hero__badge">
+                        <div class="hero__badge-icon">🥈</div>
+                        <div>
+                            <div class="hero__badge-label">CNRS</div>
+                            <div class="hero__badge-val">Médaille d'Argent</div>
+                        </div>
+                    </div>
+                    <div class="hero__badge2">Triple<br>Prix 2024</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SPEAKER -->
+<section class="section" id="speaker">
+    <div class="container">
+        <div class="eyebrow">Conférencière invitée</div>
+        <h2 class="section-title">À la rencontre de l'intervenante</h2>
+        <div class="speaker__grid">
+
+            <div class="speaker__left">
+                <div class="speaker__frame">
+                    <img src="Sihem2024.jpg" alt="Dr. Sihem Amer-Yahia">
+                </div>
+                <div class="speaker__name-sm">Dr. Sihem Amer-Yahia</div>
+                <div class="speaker__role-sm">Directrice de Recherche CNRS<br>LIG — Grenoble</div>
+                <div class="speaker__plinks">
+                    <a href="https://lig-membres.imag.fr/amery/" target="_blank" class="speaker__pl">LIG</a>
+                    <a href="https://scholar.google.com/citations?user=rMtUkMcAAAAJ" target="_blank" class="speaker__pl">Scholar</a>
+                    <a href="https://dblp.org/pid/a/SihemAmerYahia.html" target="_blank" class="speaker__pl">DBLP</a>
+                </div>
+            </div>
+
+            <div class="speaker__right">
+                <div>
+                    <div class="speaker__heading">Sihem Amer-Yahia</div>
+                    <div class="speaker__subtitle">Directrice de Recherche CNRS (Grade Exceptionnel) · Directrice adjointe, LIG Grenoble</div>
+                    <p class="speaker__bio">
+                        Sihem Amer-Yahia est Directrice de Recherche CNRS (Médaille d'Argent 2020) et Directrice adjointe du Laboratoire d'Informatique de Grenoble (LIG). Ses travaux portent sur l'analyse exploratoire de données, la montée en compétences algorithmique et l'équité dans les systèmes pilotés par les données. Avant de rejoindre le CNRS, elle a été Principal Scientist au QCRI (Qatar), Senior Scientist chez Yahoo! Research, et Member of Technical Staff chez AT&amp;T Labs. En 2024, elle a reçu simultanément le Prix IEEE TCDE, le Prix ACM SIGMOD Contributions et le Prix VLDB Women in Database Research — une triple distinction exceptionnelle qui témoigne de son impact international.
+                    </p>
+                </div>
+
+                <div class="awards">
+                    <div class="awards__label">Distinctions &amp; Prix</div>
+                    <ul class="awards__list">
+                        <li class="awards__item"><span class="yr">2024</span>IEEE TCDE Impact Award</li>
+                        <li class="awards__item"><span class="yr">2024</span>ACM SIGMOD Contributions Award</li>
+                        <li class="awards__item"><span class="yr">2024</span>VLDB Women in Database Research Award</li>
+                        <li class="awards__item"><span class="yr yr--green">2020</span>Médaille d'Argent du CNRS — plus haute distinction de recherche française</li>
+                        <li class="awards__item"><span class="yr yr--green">2017</span>ACM Distinguished Member</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="tl__label">Parcours Professionnel</div>
+                    <div class="tl">
+                        <div class="tl__item">
+                            <div class="tl__dot">AT</div>
+                            <div class="tl__body"><div class="tl__org">AT&amp;T Labs Research</div><div class="tl__pos">Member of Technical Staff</div></div>
+                        </div>
+                        <div class="tl__item">
+                            <div class="tl__dot">Ya</div>
+                            <div class="tl__body"><div class="tl__org">Yahoo! Research</div><div class="tl__pos">Senior Scientist</div></div>
+                        </div>
+                        <div class="tl__item">
+                            <div class="tl__dot">QC</div>
+                            <div class="tl__body"><div class="tl__org">QCRI — Qatar</div><div class="tl__pos">Principal Scientist</div></div>
+                        </div>
+                        <div class="tl__item">
+                            <div class="tl__dot">LIG</div>
+                            <div class="tl__body"><div class="tl__org">CNRS / LIG Grenoble</div><div class="tl__pos">Directrice de Recherche (poste actuel)</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metrics">
+                    <div class="metric"><div class="metric__val">9 500+</div><div class="metric__lbl">Citations</div></div>
+                    <div class="metric"><div class="metric__val">47</div><div class="metric__lbl">h-index</div></div>
+                    <div class="metric"><div class="metric__val">160+</div><div class="metric__lbl">Publications</div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- LITIO -->
+<section class="section" id="litio">
+    <div class="container">
+        <div class="eyebrow">Organisateur</div>
+        <h2 class="section-title">À Propos du LITIO</h2>
+
+        <p class="litio-intro">
+            Le Laboratoire d'Informatique et des Technologies de l'Information d'Oran (LITIO) est rattaché à la Faculté des Sciences Exactes et Appliquées de l'Université d'Oran 1 Ahmed Ben Bella. Il fédère la recherche autour de quatre équipes complémentaires couvrant l'optimisation, l'ingénierie des données, la vision par ordinateur et la cybersécurité.
+        </p>
+
+        <div class="litio-meta">
+            <dl>
+                <dt>Directrice</dt>
+                <dd>Prof. Safia Nait Bahloul</dd>
+                <dt>Institution</dt>
+                <dd>FSEA — Université d'Oran 1 Ahmed Ben Bella</dd>
+            </dl>
+        </div>
+
+        <div class="teams-grid">
+            <div class="team-card">
+                <div class="team-card__img"><img src="PCO.png" alt="Équipe PCO"></div>
+                <div class="team-card__body">
+                    <div class="team-card__code">PCO</div>
+                    <div class="team-card__name">Programmation par Contraintes et Optimisation</div>
+                    <div class="team-card__head-label">Responsable</div>
+                    <div class="team-card__head">Lebbah Yahia</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__img"><img src="IDTW.jpg" alt="Équipe IDTW"></div>
+                <div class="team-card__body">
+                    <div class="team-card__code">IDTW</div>
+                    <div class="team-card__name">Ingénierie des Données et Technologies Web</div>
+                    <div class="team-card__head-label">Responsable</div>
+                    <div class="team-card__head">Safia Nait Bahloul</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__img"><img src="VA.jpg" alt="Équipe VIA"></div>
+                <div class="team-card__body">
+                    <div class="team-card__code">VIA</div>
+                    <div class="team-card__name">Vision par Ordinateur et Intelligence Artificielle</div>
+                    <div class="team-card__head-label">Responsable</div>
+                    <div class="team-card__head">Nourine Rachid</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-card__img"><img src="AORC.jpg" alt="Équipe AORC"></div>
+                <div class="team-card__body">
+                    <div class="team-card__code">AORC</div>
+                    <div class="team-card__name">Algorithmes, Optimisation, Réseaux et Cybersécurité</div>
+                    <div class="team-card__head-label">Responsable</div>
+                    <div class="team-card__head">Kaddour Mejdi</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://vrre.univ-oran1.dz/platforme/laboratoires/view.php?id=33" target="_blank" class="litio-ext" style="display:inline-block; margin-top:24px;">
+            Page officielle du laboratoire →
+        </a>
+    </div>
+</section>
+
+<!-- PROGRAMME (merged, two days) -->
+<section class="section" id="programme">
+    <div class="container">
+        <div class="eyebrow">24 – 25 Mai 2026</div>
+        <h2 class="section-title">Programme</h2>
+
+        <!-- Day 1 -->
+        <div class="prog-day-label">Dimanche 24 Mai 2026</div>
+
+        <div class="prog-item">
+            <div class="prog__row">
+                <div class="prog__time">09:30</div>
+                <div>
+                    <div class="prog__type">Exposé invité</div>
+                    <div class="prog__title">Policy Reusability for Multi-Objective Sequential Decision Making</div>
+                    <div class="prog__by">Dr. Sihem Amer-Yahia · CNRS / LIG Grenoble</div>
+                    <p class="prog__abstract">
+                        Approche zero-shot pour la réutilisation de politiques mono-objectif dans la prise de décision multi-objectif séquentielle, avec orchestration par LLM. Résultats empiriques en éducation démontrant une réduction de 3× du coût computationnel par rapport aux méthodes MORL.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="prog-item prog-item--break">
+            <div class="prog__row">
+                <div class="prog__time prog__time--soft">~11:30</div>
+                <div class="prog__by" style="padding-top:2px;">Pause · Questions</div>
+            </div>
+        </div>
+
+        <div class="prog-item">
+            <div class="prog__row">
+                <div class="prog__time">12:00</div>
+                <div>
+                    <div class="prog__type">Table ronde</div>
+                    <div class="prog__title">Les Bases de Données pourront-elles sauver l'IA&nbsp;?</div>
+                    <div class="prog__title-en">Can Databases Save AI — or Is It the Other Way Around?</div>
+                    <div class="prog__by">Discussion ouverte</div>
+                    <p class="prog__abstract prog__abstract--fr">
+                        Échange ouvert sur les interactions entre bases de données et IA — complémentarité, tensions, et enjeux pour la communauté scientifique et nos étudiants.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="prog-day-label">Lundi 25 Mai 2026</div>
+
+        <div class="prog-item" style="border-bottom: 1px solid var(--border);">
+            <div class="prog__row">
+                <div class="prog__time">Matin</div>
+                <div>
+                    <div class="prog__type">Réunion interne</div>
+                    <div class="prog__title">Rencontre avec les membres du LITIO</div>
+                    <div class="prog__by">Dr. Sihem Amer-Yahia · Équipes de recherche LITIO</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section" id="participer">
+    <div class="container">
+        <div class="cta-inner">
+            <div class="cta-tag">Participation ouverte</div>
+            <h2 class="cta-title">Chercheurs &amp; doctorants,<br>rejoignez-nous</h2>
+            <p class="cta-text">
+                Ces journées sont ouvertes à l'ensemble de la communauté académique — chercheurs, doctorants et étudiants en master. Une occasion rare d'assister à une conférence et d'échanger directement avec une chercheuse de réputation internationale.
+            </p>
+            <div class="cta-details">
+                <div class="cta-detail"><span>📅</span> 24 &amp; 25 Mai 2026</div>
+                <div class="cta-detail"><span>📍</span> LITIO — FSEA, Université d'Oran 1</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__inner">
+            <span><span class="footer__brand">LITIO</span> — Université d'Oran 1 Ahmed Ben Bella</span>
+            <span>Workshop · 24 &amp; 25 Mai 2026</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu
+    document.getElementById('burger').addEventListener('click', function() {
+        document.getElementById('mobileMenu').classList.toggle('open');
+    });
+    document.querySelectorAll('.ml').forEach(function(l) {
+        l.addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.remove('open');
+        });
+    });
+
+    // Scroll fade-in
+    var fi = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('on'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('.fi').forEach(function(el) { fi.observe(el); });
+
+    // Active nav link
+    var navLinks = document.querySelectorAll('.nav__links a');
+    var secObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) {
+                navLinks.forEach(function(l) { l.classList.remove('active'); });
+                var a = document.querySelector('.nav__links a[href="#' + e.target.id + '"]');
+                if (a) a.classList.add('active');
+            }
+        });
+    }, { threshold: 0.4 });
+    ['speaker', 'programme', 'litio'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) secObs.observe(el);
+    });
+</script>
+
+</body>
+</html>
